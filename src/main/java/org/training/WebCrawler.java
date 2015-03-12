@@ -3,21 +3,19 @@ package org.training;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class WebCrawler {
 
-	private static final String URL = "http://mail-archives.apache.org/mod_mbox/maven-users/";
 	private static Scanner sc;
 	
-	/**
-	 * @param args
-	 * @throws IOException 
-	 * @throws InterruptedException 
-	 */
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 		sc = new Scanner(System.in);
 		System.out.println("Enter the year :");
 		String year = sc.next();
-		MailDownloader mailDownloader = new MailDownloader();
-		mailDownloader.connectToPageAndDownloadMails(URL,year);
+		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+		MailDownloader mailDownloader = (MailDownloader)context.getBean("mailDownloader");
+		mailDownloader.connectToPageAndDownloadMails(year);
 	}
 }
