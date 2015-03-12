@@ -146,15 +146,14 @@ public class MailDownloader {
 			reader = new BufferedReader( new FileReader (file));
 			resumedUrl = reader.readLine();
 			} catch(IOException ex) {
-				
+				logger.error("Exception occured while reading the content from file", ex);
 			} finally {
 				try {
 					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (IOException ex) {
+					logger.error("Exception occured while closing the resource reader", ex);
 				}
 			}
-			file.delete();
 		}
 		return resumedUrl;
 	}
